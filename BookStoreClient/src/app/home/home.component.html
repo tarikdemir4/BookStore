@@ -1,0 +1,58 @@
+<div class="card mt-3">
+    <div class="card-header d-flex justify-content-between align-items-center mt-2">
+        <h5>Home Page</h5>
+        <div>
+            <a routerLink="/">{{'home'|translate}}</a>
+        </div>
+    </div>
+</div>
+<div class="row mt-4">
+    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+        <div class="card">
+            <div class="card-header">
+                <h1>{{'categories'|translate}}</h1>
+            </div>
+            <div class="card-body">
+                <ul class="categories">
+                    <li>{{'advanture'|translate}}</li>
+                    <li>{{'software'|translate}}</li>
+                    <li>{{'love'|translate}}</li>
+                    <li>{{'detective'|translate}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-9 col-md-8 col-sm-6 col-12 ">
+        <div class="row ">
+            <div class="col-xl-4 col-md-6 col-12 mt-2" *ngFor="let b of books">
+                <div class="card text-center "  >
+                    <img src="https://m.media-amazon.com/images/I/71Qde+ZerdL._AC_UL960_QL65_.jpg" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the card's content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav aria-label="Page navigation example" style="float: right;">
+            <ul class="pagination">
+              <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+    </div>
+
+</div>
