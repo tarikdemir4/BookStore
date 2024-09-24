@@ -8,13 +8,48 @@ namespace BookStoreServer.WebApi.Controllers;
 [ApiController]
 public class BooksController : ControllerBase
 {
-    private static List<Book> books = new()
-    {
 
-    };
     public BooksController()
     {
-        books = new();
+    }
+
+    [HttpPost]
+    public IActionResult GetAll(RequestDto request)
+    {
+        ResponseDto<List<Book>> response = new();
+        string replaceSearch = request.Search.Replace("İ", "i").ToLower();
+        var newBooks = SeedData.Books
+            .Where(x => x.Title.Replace("İ", "i").ToLower().Contains(replaceSearch) ||
+                       x.Author.Replace("İ", "i").ToLower().Contains(replaceSearch)
+            )
+
+            .ToList();
+
+        response.Data = newBooks.Skip((request.PageNumber - 1) * request.PageSize)
+            .Take(request.PageSize).ToList();
+
+        response.PageNumber = request.PageNumber;
+        response.PageSize = request.PageSize;
+        response.TotalPageCount = (int)Math.Ceiling(newBooks.Count / (double)request.PageSize);
+        response.IsFirstPage = request.PageNumber == 1;
+        response.IsLastPage = request.PageNumber == response.TotalPageCount;
+        return Ok(response);
+    }
+
+
+}
+
+public static class SeedData
+{
+    public static List<Book> Books = new BookService().CreateSeedBookData();
+}
+
+
+public class BookService
+{
+    private List<Book> books = new();
+    public List<Book> CreateSeedBookData()
+    {
         for (int i = 0; i < 100; i++)
         {
             var book = new Book()
@@ -33,29 +68,8 @@ public class BooksController : ControllerBase
             };
             books.Add(book);
         }
+        return books;
     }
 
-    [HttpPost]
-    public IActionResult GetAll(RequestDto request)
-    {
-        ResponseDto<List<Book>> response = new();
-        string replaceSearch = request.Search.Replace("İ", "i").ToLower();
-        response.Data = books
-            .Where(x=> x.Title.Replace("İ","i").ToLower().Contains(replaceSearch) ||
-                       x.Author.Replace("İ","i").ToLower().Contains(replaceSearch)
-            )
-            .Skip((request.PageNumber - 1) * request.PageSize)
-            .Take(request.PageSize)
-            .ToList();
 
-
-        response.PageNumber = request.PageNumber;
-        response.PageSize = request.PageSize;
-        response.TotalPageCount = (int)Math.Ceiling(books.Count / (double)request.PageSize);
-        response.IsFirstPage = request.PageNumber == 1;
-        response.IsLastPage = request.PageNumber == response.TotalPageCount;
-
-
-        return Ok(response);
-    }
 }
