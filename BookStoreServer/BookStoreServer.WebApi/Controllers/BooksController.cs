@@ -17,6 +17,9 @@ public class BooksController : ControllerBase
     public IActionResult GetAll(RequestDto request)
     {
         ResponseDto<List<Book>> response = new();
+
+
+
         string replaceSearch = request.Search.Replace("İ", "i").ToLower();
         var newBooks = new List<Book>();
 
@@ -64,6 +67,7 @@ public static class SeedData
 }
 
 
+
 public class BookService
 {
     private List<Book> books = new();
@@ -92,6 +96,8 @@ public class BookService
         }
         return books;
     }
+
+
     public List<Category> CreateCategories()
     {
         for (int i = 0; i < 10; i++)
@@ -107,6 +113,8 @@ public class BookService
         }
         return categories;
     }
+
+
     public List<BookCategory> CreateBookCategories()
     {
         int id = 0;
@@ -121,11 +129,13 @@ public class BookService
                 Book = book,
                 CategoryId = random.Next(1, 10)
             };
+
             bookCategories.Add(bookCategory);
 
         }
 
         return bookCategories;
+
     }
 
 
