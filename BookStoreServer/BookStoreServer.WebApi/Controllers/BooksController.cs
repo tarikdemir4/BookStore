@@ -1,6 +1,5 @@
 ﻿using BookStoreServer.WebApi.DTOs;
 using BookStoreServer.WebApi.Models;
-using EntityFrameworkCorePagination.Nuget.Pagination;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookStoreServer.WebApi.Controllers;
@@ -61,81 +60,10 @@ public class BooksController : ControllerBase
 
 public static class SeedData
 {
-    public static List<Book> Books = new BookService().CreateSeedBookData();
-    public static List<Category> Categories = new BookService().CreateCategories();
-    public static List<BookCategory> BookCategories = new BookService().CreateBookCategories();
+    public static List<Book> Books = new();
+    public static List<Category> Categories = new();
+    public static List<BookCategory> BookCategories = new();
 }
 
 
 
-public class BookService
-{
-    private List<Book> books = new();
-    private List<Category> categories = new();
-    private List<BookCategory> bookCategories = new();
-
-    public List<Book> CreateSeedBookData()
-    {
-        for (int i = 0; i < 100; i++)
-        {
-            var book = new Book()
-            {
-                Id = i + 1,
-                Title = "Kitap " + (i + 1),
-                Author = "Yazar " + (i + 1),
-                Summary = "",
-                CoverImageUrl = "https://picsum.photos/200/300",
-                CreateAt = DateTime.Now,
-                IsActive = true,
-                ISBN = "978-0321125217",
-                Price = 5 * (i + 1),
-                Quantity = i + 1
-
-            };
-            books.Add(book);
-        }
-        return books;
-    }
-
-
-    public List<Category> CreateCategories()
-    {
-        for (int i = 0; i < 10; i++)
-        {
-            var category = new Category()
-            {
-                Id = i + 1,
-                Name = "Kategori " + (i + 1),
-                IsActive = true,
-                IsDeleted = false
-            };
-            categories.Add(category);
-        }
-        return categories;
-    }
-
-
-    public List<BookCategory> CreateBookCategories()
-    {
-        int id = 0;
-        Random random = new();
-        foreach (var book in SeedData.Books)
-        {
-            id++;
-            var bookCategory = new BookCategory()
-            {
-                Id = id,
-                BookId = book.Id,
-                Book = book,
-                CategoryId = random.Next(1, 10)
-            };
-            bookCategories.Add(bookCategory);
-
-        }
-
-        return bookCategories;
-
-    }
-
-
-}
