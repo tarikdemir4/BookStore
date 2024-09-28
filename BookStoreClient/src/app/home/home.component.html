@@ -17,13 +17,15 @@
                     <span class="input-group-text" id="basic-addon1">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </span>
-                    <input  type="search" class="form-control" placeholder="{{'search'|translate}}">
+                    <input
+                    [(ngModel)]="searchCategory" type="search" class="form-control" placeholder="{{'search'|translate}}">
                 </div>
                 <ul class="categories">
-                    <li>{{'advanture'|translate}}</li>
-                    <li>{{'software'|translate}}</li>
-                    <li>{{'love'|translate}}</li>
-                    <li>{{'detective'|translate}}</li>
+                    <li (click)="changeCategory(null)" [ngClass]="request.categoryId===null ? 'active': ''">
+                        {{'allCategories'|translate}}</li>
+                    <li (click)="changeCategory(c.id)" [ngClass]="request.categoryId===c.id ? 'active': ''"
+                        *ngFor="let c of categories |category:searchCategory">{{c.name}}
+                    </li>
                 </ul>
             </div>
         </div>
@@ -33,7 +35,8 @@
             <span class="input-group-text" id="basic-addon1">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </span>
-            <input [(ngModel)]="request.search" (keydown.enter)="getAll(request.pageNumber)" (search)="getAll(1)" type="search" class="form-control" placeholder="{{'search'|translate}}">
+            <input [(ngModel)]="request.search" (keydown.enter)="getAll(request.pageNumber)" (search)="getAll(1)"
+                type="search" class="form-control" placeholder="{{'search'|translate}}">
         </div>
         <div class="row ">
             <div class="col-xl-4 col-md-6 col-12 mt-2" *ngFor="let b of response?.data">
@@ -47,7 +50,6 @@
                     <h5 class="card-title">{{b.title}}</h5>
                     <p class="card-text">{{b.summary}}</p>
                     <a href="#" class="btn btn-primary">Go somewhere</a>
-
                 </div>
             </div>
         </div>
@@ -58,18 +60,17 @@
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
-                <li class="page-item" [ngClass]="response.pageNumber==p?'active':''" *ngFor="let p of pageNumbers">
+                <li class="page-item" [ngClass]="response?.pageNumber==p?'active':''" *ngFor="let p of pageNumbers">
                     <a class="page-link" (click)="getAll(p)">
                         {{p}}
                     </a>
                 </li>
                 <li class="page-item" *ngIf="!response?.isLastPage">
-                    <a class="page-link" (click)="getAll(response.pageNumber+1)" aria-label="Next">
+                    <a class="page-link" (click)="getAll(response?.pageNumber+1)" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>
             </ul>
         </nav>
     </div>
-
 </div>

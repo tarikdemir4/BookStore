@@ -82,7 +82,7 @@ public class BookService
             {
                 Id = i + 1,
                 Title = "Kitap " + (i + 1),
-                Author = "Yazar" + (i + 1),
+                Author = "Yazar " + (i + 1),
                 Summary = "",
                 CoverImageUrl = "https://picsum.photos/200/300",
                 CreateAt = DateTime.Now,
@@ -105,7 +105,7 @@ public class BookService
             var category = new Category()
             {
                 Id = i + 1,
-                Name = "Kategori" + (i + 1),
+                Name = "Kategori " + (i + 1),
                 IsActive = true,
                 IsDeleted = false
             };
@@ -129,7 +129,6 @@ public class BookService
                 Book = book,
                 CategoryId = random.Next(1, 10)
             };
-
             bookCategories.Add(bookCategory);
 
         }

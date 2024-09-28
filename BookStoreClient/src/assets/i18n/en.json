@@ -1,9 +1,6 @@
 {
     "categories": "Categories",
     "home": "Home",
-    "advanture": "Advanture",
-    "software": "Software",
-    "love": "Love",
-    "detective": "Detective",
-    "search":"Enter value to search for..."
+    "search":"Enter value to search for...",
+    "allCategories":"All Categories"
 }
