@@ -28,6 +28,30 @@ public sealed class AppDbContext : DbContext
             price.Property(p => p.Currency).HasMaxLength(5); // Currency alanı için maksimum uzunluk
         });
 
+
         modelBuilder.Entity<BookCategory>().HasKey(p => new { p.BookId, p.CategoryId });
+
+
+        modelBuilder.Entity<Category>().HasData(
+            new Category { Id = 1, Name = "Korku", IsActive = true, IsDeleted = false },
+            new Category { Id = 2, Name = "Bilim Kurgu", IsActive = true, IsDeleted = false },
+            new Category { Id = 3, Name = "Tarih", IsActive = true, IsDeleted = false },
+            new Category { Id = 4, Name = "Edebiyat", IsActive = true, IsDeleted = false },
+            new Category { Id = 5, Name = "Çocuk", IsActive = true, IsDeleted = false },
+            new Category { Id = 6, Name = "Psikoloji", IsActive = true, IsDeleted = false },
+            new Category { Id = 7, Name = "Din", IsActive = true, IsDeleted = false },
+            new Category { Id = 8, Name = "Felsefe", IsActive = true, IsDeleted = false },
+            new Category { Id = 9, Name = "Bilim", IsActive = true, IsDeleted = false },
+            new Category { Id = 10, Name = "Sanat", IsActive = true, IsDeleted = false },
+            new Category { Id = 11, Name = "Spor", IsActive = true, IsDeleted = false },
+            new Category { Id = 12, Name = "Gezi", IsActive = true, IsDeleted = false },
+            new Category { Id = 13, Name = "Dergi", IsActive = true, IsDeleted = false },
+            new Category { Id = 14, Name = "Mizah", IsActive = true, IsDeleted = false },
+            new Category { Id = 15, Name = "Kişisel Gelişim", IsActive = true, IsDeleted = false },
+            new Category { Id = 16, Name = "Yemek", IsActive = true, IsDeleted = false },
+            new Category { Id = 17, Name = "Hobi", IsActive = true, IsDeleted = false },
+            new Category { Id = 18, Name = "Referans", IsActive = true, IsDeleted = false },
+            new Category { Id = 19, Name = "Eğitim", IsActive = true, IsDeleted = false }
+            );
     }
 }
