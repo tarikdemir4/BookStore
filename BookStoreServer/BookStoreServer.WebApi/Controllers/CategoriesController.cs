@@ -12,14 +12,52 @@ public class CategoriesController : ControllerBase
     [HttpPost]
     public IActionResult Create(CreateCategoryDto request)
     {
+        AppDbContext context = new();
+
+        var checkNameIsUnique = context.Categories.Any(p => p.Name == request.Name);
+        if (checkNameIsUnique)
+        {
+            return BadRequest("Kategori adı daha önce kullanılmıştır");
+        }
+
         Category category = new()
         {
             Name = request.Name,
             IsActive = true,
             IsDeleted = false
         };
-        AppDbContext context = new();
+
         context.Categories.Add(category);
+        context.SaveChanges();
+        return Ok(category);
+    }
+
+    [HttpGet("{id}")]
+    public IActionResult RemoveById(int id)
+    {
+        AppDbContext context = new();
+        Category category = context.Categories.Find(id);
+        if (category == null)
+        {
+            return NotFound();
+        }
+        category.IsDeleted = true;
+        context.SaveChanges();
+        return NoContent();
+    }
+
+    [HttpPost]
+
+    public IActionResult Update(UpdateCategoryDto request)
+    {
+        AppDbContext context = new();
+        Category category = context.Categories.Find(request.Id);
+        if (category == null)
+        {
+            return NotFound();
+        }
+
+        category.Name = request.Name;
         context.SaveChanges();
         return NoContent();
     }

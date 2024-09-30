@@ -6,49 +6,57 @@ import { TranslateModule } from '@ngx-translate/core';
 import { RequestModel } from '../models/request.model';
 import { FormsModule } from '@angular/forms';
 import { CategoryPipe } from '../pipes/category.pipe';
+import { BookModel } from '../models/book.model';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterModule, TranslateModule, CommonModule, FormsModule,CategoryPipe],
+  imports: [RouterModule, TranslateModule, CommonModule, FormsModule, CategoryPipe,InfiniteScrollModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  response: any;
+  books: BookModel[] = [];
   categories: any = [];
   pageNumbers: number[] = [];
   request: RequestModel = new RequestModel();
   searchCategory: string = "";
+  newData: any[] = [];
 
   constructor(private http: HttpClient) {
-    this.getAll();
     this.getCategories();
   }
-  getAll(pageNumber = 1) {
-    this.request.pageNumber = pageNumber;
-    this.http
-      .post(`https://localhost:7280/api/Books/GetAll`, this.request)
-      .subscribe(res => {
-        this.response = res;
-        this.setPageNumber();
-      })
+
+  feedData() {
+    this.request.pageSize += 10;
+    this.newData = [];
+    this.getAll();
   }
-  getCategories() {
-    this.http.get("https://localhost:7280/api/Categories/GetAll")
-      .subscribe(res => this.categories = res);
-  }
+
   changeCategory(categoryId: number | null = null) {
     this.request.categoryId = categoryId;
-    this.getAll(1);
+    this.request.pageSize = 0;
+    this.feedData();
   }
 
-  setPageNumber() {
-    this.pageNumbers = [];
-    for (let i = 0; i < this.response.totalPageCount; i++) {
-      this.pageNumbers.push(i + 1);
 
-    }
+  getAll() {
+    this.http
+      .post<BookModel[]>(`https://localhost:7280/api/Books/GetAll`, this.request)
+      .subscribe(res => {
+        this.books = res;
+      })
   }
+
+
+  getCategories() {
+    this.http.get("https://localhost:7280/api/Categories/GetAll")
+      .subscribe(res =>{
+        this.categories = res
+        this.getAll();
+      } );
+  }
+
 
 }
