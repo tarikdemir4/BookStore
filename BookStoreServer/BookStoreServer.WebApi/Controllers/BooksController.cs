@@ -25,6 +25,7 @@ public class BooksController : ControllerBase
               .Take(request.PageSize)
               .ToList();
         }
+
         else
         {
             books = context.BookCategories

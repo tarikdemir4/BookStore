@@ -24,8 +24,8 @@ public sealed class AppDbContext : DbContext
 
         modelBuilder.Entity<Book>().OwnsOne(p => p.Price, price =>
         {
-            price.Property(p => p.Value).HasColumnType("money"); // Value alanını 'money' türünde tanımlama
-            price.Property(p => p.Currency).HasMaxLength(5); // Currency alanı için maksimum uzunluk
+            price.Property(p => p.Value).HasColumnType("money"); 
+            price.Property(p => p.Currency).HasMaxLength(5); 
         });
 
 

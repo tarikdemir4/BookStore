@@ -26,6 +26,8 @@ public class configurationController : ControllerBase
                 IsDeleted = false,
                 ISBN = "ISBN " + (i + 1),
                 CreateAt = DateTime.Now,
+
+
             };
             books.Add(book);
         }
