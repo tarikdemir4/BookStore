@@ -20,14 +20,11 @@ public sealed class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-
-
         modelBuilder.Entity<Book>().OwnsOne(p => p.Price, price =>
         {
             price.Property(p => p.Value).HasColumnType("money"); 
             price.Property(p => p.Currency).HasMaxLength(5); 
         });
-
 
         modelBuilder.Entity<BookCategory>().HasKey(p => new { p.BookId, p.CategoryId });
 
