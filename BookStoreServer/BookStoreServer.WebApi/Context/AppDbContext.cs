@@ -16,6 +16,9 @@ public sealed class AppDbContext : DbContext
     }
     public DbSet<Category> Categories { get; set; }
     public DbSet<Book> Books { get; set; }
+
+
+
     public DbSet<BookCategory> BookCategories { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
