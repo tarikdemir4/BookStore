@@ -11,14 +11,10 @@ public sealed class AppDbContext : DbContext
 
         optionsBuilder.ConfigureWarnings(warnings => warnings.Ignore(RelationalEventId.PendingModelChangesWarning));
 
-
         optionsBuilder.UseSqlServer("Data Source=TARDEMPC\\SQLEXPRESS;Initial Catalog=BookStoreDb;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False");
     }
     public DbSet<Category> Categories { get; set; }
     public DbSet<Book> Books { get; set; }
-
-
-
     public DbSet<BookCategory> BookCategories { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

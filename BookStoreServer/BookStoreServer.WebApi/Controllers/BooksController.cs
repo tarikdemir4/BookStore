@@ -24,6 +24,7 @@ public class BooksController : ControllerBase
               .OrderByDescending(p => p.CreateAt)
               .Take(request.PageSize)
               .ToList();
+
         }
 
         else
@@ -37,6 +38,7 @@ public class BooksController : ControllerBase
                 .OrderByDescending(p => p.CreateAt)
                 .Take(request.PageSize)
                 .ToList();
+
         }
         return Ok(books);
 
