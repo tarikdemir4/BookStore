@@ -28,8 +28,6 @@ public class BooksController : ControllerBase
 
         else
         {
-
-
             books = context.BookCategories
                 .Where(p => p.CategoryId == request.CategoryId)
                 .Include(p => p.Book)
@@ -39,9 +37,6 @@ public class BooksController : ControllerBase
                 .OrderByDescending(p => p.CreateAt)
                 .Take(request.PageSize)
                 .ToList();
-
-
-
         }
 
 
