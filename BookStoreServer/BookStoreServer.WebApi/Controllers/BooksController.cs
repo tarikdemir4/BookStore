@@ -18,12 +18,14 @@ public class BooksController : ControllerBase
         List<Book> books = new();
         if (request.CategoryId == null)
         {
+
             books = context.Books
               .Where(p => p.IsActive == true && p.IsDeleted == false)
               .Where(p => p.Title.ToLower().Contains(request.Search.ToLower()) || p.ISBN.Contains(request.Search))
               .OrderByDescending(p => p.CreateAt)
               .Take(request.PageSize)
               .ToList();
+
         }
 
         else
@@ -38,8 +40,6 @@ public class BooksController : ControllerBase
                 .Take(request.PageSize)
                 .ToList();
         }
-
-
         return Ok(books);
 
     }
