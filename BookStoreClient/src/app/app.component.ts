@@ -1,29 +1,13 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { RouterModule, RouterOutlet } from '@angular/router';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [
-    RouterOutlet,
-    TranslateModule,RouterModule
-  ],
-  template:"<router-outlet></router-outlet>"
+    selector: 'app-root',
+    template: `
+  <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "timer" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner> 
+  <router-outlet></router-outlet>`,
+    standalone: true,
+    imports: [NgxSpinnerModule, RouterOutlet]
 })
-export class AppComponent implements OnInit {
-  languages=['tr','en'];
-  private translateService=inject(TranslateService)
-
-  ngOnInit(): void {
-    const defaultLange=localStorage.getItem('language')||'tr';
-    this.translateService.setDefaultLang(defaultLange);
-    this.translateService.use(defaultLange);
-  }
-
-  changeLanguage(lang:string){
-    this.translateService.use(lang);
-    localStorage.setItem('language',lang);
-  }
-  
-}
+export class AppComponent {}

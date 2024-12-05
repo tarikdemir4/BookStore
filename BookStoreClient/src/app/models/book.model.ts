@@ -1,4 +1,4 @@
-export class BookModel {
+export class BookModel{
     id: number = 0;
     title: string = "";
     author: string = "";
@@ -10,10 +10,12 @@ export class BookModel {
     isDeleted: boolean = false;
     isbn: string = "";
     createAt: string = "";
+    categories: string[] = [];
+    shoppingCartId: number = 0;    
+    raiting: number = 0;
 }
 
-
-export class Money {
+export class Money{
     value: number = 0;
     currency: string = "₺";
 }
