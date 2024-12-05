@@ -15,6 +15,4 @@ public sealed class Book
     public bool IsDeleted { get; set; } = false;
     public string ISBN { get; set; } = string.Empty;
     public DateTime CreateAt { get; set; } = DateTime.Now;
-
-
 }

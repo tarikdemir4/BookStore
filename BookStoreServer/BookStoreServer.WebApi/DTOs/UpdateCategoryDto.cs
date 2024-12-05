@@ -1,4 +1,4 @@
-﻿namespace BookStoreServer.WebApi.DTOs;
+﻿namespace BookStoreServer.WebApi.Dtos;
 
 public sealed record UpdateCategoryDto(
     int Id,
