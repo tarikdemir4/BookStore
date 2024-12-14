@@ -7,7 +7,6 @@ public sealed class AppDbContext : DbContext
 {
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        //optionsBuilder.UseSqlServer("Data Source=DESKTOP-3BJ5GK9\\SQLEXPRESS;Initial Catalog=YMYP_BookStoreDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
         optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Username=postgres;Password=admin;Database=BookStoreDb;").UseSnakeCaseNamingConvention();
     }
 
@@ -30,13 +29,13 @@ public sealed class AppDbContext : DbContext
         modelBuilder.Entity<Book>().OwnsOne(p => p.Price, price =>
         {
             price.Property(p => p.Value).HasColumnType("money");
-            price.Property(p => p.Currency).HasMaxLength(5); // Assuming you want a max length for Currency
-        });//Value Object
+            price.Property(p => p.Currency).HasMaxLength(5);
+        });
 
         modelBuilder.Entity<Order>().OwnsOne(p => p.Price, price =>
         {
             price.Property(p => p.Value).HasColumnType("money");
-            price.Property(p => p.Currency).HasMaxLength(5); // Assuming you want a max length for Currency
+            price.Property(p => p.Currency).HasMaxLength(5);
         });//Value Object
 
         modelBuilder.Entity<ShoppingCart>().OwnsOne(p => p.Price, price =>
@@ -46,11 +45,7 @@ public sealed class AppDbContext : DbContext
         });
 
         modelBuilder.Entity<BookCategory>().HasKey(p => new { p.BookId, p.CategoryId });
-        //Composite Key
-
-        //Seed Data => Development sürecinde eline veri olmasını sağlar ki üzerinde çalışılabilsin.
-        //Canlıya aldığında değişmeyecek ve database de kayıt olarak tutman gereken verilerin olmasını sağlar.
-
+        
         modelBuilder.Entity<Category>().HasData( //seed data
           new Category { Id = 1, Name = "Korku", IsActive = true, IsDeleted = false },
           new Category { Id = 2, Name = "Bilim Kurgu", IsActive = true, IsDeleted = false },
