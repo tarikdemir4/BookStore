@@ -36,7 +36,7 @@ public sealed class AppDbContext : DbContext
         {
             price.Property(p => p.Value).HasColumnType("money");
             price.Property(p => p.Currency).HasMaxLength(5);
-        });//Value Object
+        });
 
         modelBuilder.Entity<ShoppingCart>().OwnsOne(p => p.Price, price =>
         {
