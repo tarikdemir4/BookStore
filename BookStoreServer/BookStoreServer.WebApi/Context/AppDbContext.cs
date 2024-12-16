@@ -43,6 +43,7 @@ public sealed class AppDbContext : DbContext
             price.Property(p => p.Currency).HasMaxLength(5);
         });
         
+        
 
         
 
