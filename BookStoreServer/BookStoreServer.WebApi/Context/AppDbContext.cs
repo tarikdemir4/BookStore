@@ -1,6 +1,7 @@
 ﻿using BookStoreServer.WebApi.Models;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace BookStoreServer.WebApi.Context;
 
 public sealed class AppDbContext : DbContext
@@ -42,10 +43,6 @@ public sealed class AppDbContext : DbContext
             price.Property(p => p.Value).HasColumnType("money");
             price.Property(p => p.Currency).HasMaxLength(5);
         });
-        
-        
-
-        
 
 
         modelBuilder.Entity<BookCategory>().HasKey(p => new { p.BookId, p.CategoryId });
@@ -71,4 +68,9 @@ public sealed class AppDbContext : DbContext
           new Category { Id = 18, Name = "Referans", IsActive = true, IsDeleted = false },
           new Category { Id = 19, Name = "Eğitim", IsActive = true, IsDeleted = false });
     }
+
+
+
 }
+
+
