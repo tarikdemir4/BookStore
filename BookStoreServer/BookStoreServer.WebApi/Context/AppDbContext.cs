@@ -44,6 +44,8 @@ public sealed class AppDbContext : DbContext
         });
         
 
+        
+
 
         modelBuilder.Entity<BookCategory>().HasKey(p => new { p.BookId, p.CategoryId });
         
