@@ -42,6 +42,7 @@ public sealed class AppDbContext : DbContext
             price.Property(p => p.Value).HasColumnType("money");
             price.Property(p => p.Currency).HasMaxLength(5);
         });
+        
 
 
         modelBuilder.Entity<BookCategory>().HasKey(p => new { p.BookId, p.CategoryId });
